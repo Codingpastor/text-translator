@@ -41,7 +41,7 @@
     <div class="output" id="outputText"></div>
 
     <script>
-        // Translation mapping for specific words
+        // Expanded translation mapping with more varied responses
         const memeMap = {
             hello: "Skibidi Dop Dop Dop Yes Yes!",
             goodbye: "Grindset achieved. I walk alone.",
@@ -52,25 +52,70 @@
             "how are you": "Dominating existence, as always.",
             love: "Emotions are for betas. Sigma only.",
             challenge: "Sigma sees only opportunities.",
+            "what is": "What the actual sigma?",
+            "why": "Why ask? Sigma does."
         };
 
-        // Grammar transformation rules
+        const sentenceRules = {
+            question: (sentence) => {
+                return sentence.replace(/.*/, "What the actual sigma?");
+            },
+            exclamation: (sentence) => {
+                return sentence.replace(/.*/, "Absolute sigma vibes!");
+            },
+            statement: (sentence) => {
+                return sentence + " (Sigma grind approved.)";
+            }
+        };
+
+        // Randomized fun sigma responses
+        const sigmaResponses = [
+            "Sigmas don't chase, they attract.",
+            "Work in silence, let success make the noise.",
+            "Sigmas never apologize for their authenticity.",
+            "Stay low-key like a sigma.",
+            "True sigmas embrace challenges head-on.",
+            "A sigma knows his worth, even when others don’t.",
+            "Sigmas are born, not made.",
+            "Only the sigma understands the value of solitude.",
+            "The sigma doesn’t wait for opportunities; he creates them.",
+            "To be a sigma is to conquer yourself first.",
+            "Sigma doesn’t need validation from anyone."
+        ];
+
+        const skibidiResponses = [
+            "Skibidi to the moon and back!",
+            "Flush away your worries, Skibidi it out!",
+            "Skibidi beats, toilet seats, life’s complete.",
+            "Skibidi the night away with toilet style.",
+            "Feel the flush of freedom with Skibidi!",
+            "When the Skibidi hits, there's no stopping the groove.",
+            "Skibidi is the language of fun.",
+            "Flush it, feel it, Skibidi it!",
+            "Skibidi all day, toilet all night!",
+            "Dance like no one's watching, Skibidi like everyone's laughing."
+        };
+
+        // Function to handle sentence transformations
         function transformSentence(sentence) {
             const isQuestion = /\?$/.test(sentence);
             const isExclamation = /!$/.test(sentence);
+            const isStatement = !isQuestion && !isExclamation;
 
-            // Handle questions
+            // Handle different sentence types
             if (isQuestion) {
-                return sentence.replace(/.*/, "What the actual sigma?");
+                return sentenceRules.question(sentence);
             }
 
-            // Handle exclamations
             if (isExclamation) {
-                return sentence.replace(/.*/, "Absolute sigma vibes!");
+                return sentenceRules.exclamation(sentence);
             }
 
-            // Default case for statements
-            return sentence + " (Sigma grind approved.)";
+            if (isStatement) {
+                return sentenceRules.statement(sentence);
+            }
+
+            return sentence;  // Default return if no match
         }
 
         // Main translation function
@@ -87,7 +132,16 @@
                         transformed = transformed.replace(regex, value);
                     }
 
-                    // Apply grammar rules
+                    // Add some random fun responses
+                    transformed = transformed.replace(/\b(sigmas?)\b/gi, () => {
+                        return sigmaResponses[Math.floor(Math.random() * sigmaResponses.length)];
+                    });
+
+                    transformed = transformed.replace(/\b(skibidi)\b/gi, () => {
+                        return skibidiResponses[Math.floor(Math.random() * skibidiResponses.length)];
+                    });
+
+                    // Apply sentence transformation rules
                     return transformSentence(transformed);
                 })
                 .join(" ");
