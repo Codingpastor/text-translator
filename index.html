@@ -35,13 +35,13 @@
     </style>
 </head>
 <body>
-    <h1>Sigma Skibidi Translator</h1>
+    <h1>Sigma Skibidi Translator 2.0</h1>
     <textarea id="inputText" placeholder="Enter text here..."></textarea>
     <button onclick="translateText()">Translate</button>
     <div class="output" id="outputText"></div>
 
     <script>
-        // Expanded translation mapping with more varied responses
+        // Expanded translation mapping with many sigma and skibidi phrases
         const memeMap = {
             hello: "Skibidi Dop Dop Dop Yes Yes!",
             goodbye: "Grindset achieved. I walk alone.",
@@ -53,7 +53,8 @@
             love: "Emotions are for betas. Sigma only.",
             challenge: "Sigma sees only opportunities.",
             "what is": "What the actual sigma?",
-            "why": "Why ask? Sigma does."
+            "why": "Why ask? Sigma does.",
+            "i am": "I am a lone wolf on the grind."
         };
 
         const sentenceRules = {
@@ -65,10 +66,13 @@
             },
             statement: (sentence) => {
                 return sentence + " (Sigma grind approved.)";
+            },
+            quote: (sentence) => {
+                return `"Sigma doesn't just talk, he dominates."`;
             }
         };
 
-        // Randomized fun sigma responses
+        // A list of more specific sigma and skibidi phrases
         const sigmaResponses = [
             "Sigmas don't chase, they attract.",
             "Work in silence, let success make the noise.",
@@ -80,7 +84,8 @@
             "Only the sigma understands the value of solitude.",
             "The sigma doesn’t wait for opportunities; he creates them.",
             "To be a sigma is to conquer yourself first.",
-            "Sigma doesn’t need validation from anyone."
+            "Sigma doesn’t need validation from anyone.",
+            "The sigma is always three steps ahead."
         ];
 
         const skibidiResponses = [
@@ -93,10 +98,11 @@
             "Skibidi is the language of fun.",
             "Flush it, feel it, Skibidi it!",
             "Skibidi all day, toilet all night!",
-            "Dance like no one's watching, Skibidi like everyone's laughing."
-        };
+            "Dance like no one's watching, Skibidi like everyone's laughing.",
+            "Skibidi through life, one flush at a time."
+        ];
 
-        // Function to handle sentence transformations
+        // Handle specific expressions based on sentence type and context
         function transformSentence(sentence) {
             const isQuestion = /\?$/.test(sentence);
             const isExclamation = /!$/.test(sentence);
@@ -132,7 +138,7 @@
                         transformed = transformed.replace(regex, value);
                     }
 
-                    // Add some random fun responses
+                    // Add some random fun responses for 'sigma' and 'skibidi' mentions
                     transformed = transformed.replace(/\b(sigmas?)\b/gi, () => {
                         return sigmaResponses[Math.floor(Math.random() * sigmaResponses.length)];
                     });
@@ -141,7 +147,7 @@
                         return skibidiResponses[Math.floor(Math.random() * skibidiResponses.length)];
                     });
 
-                    // Apply sentence transformation rules
+                    // Apply sentence transformation rules (questions, exclamations, statements)
                     return transformSentence(transformed);
                 })
                 .join(" ");
