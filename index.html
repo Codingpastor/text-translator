@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sigma Translator</title>
+    <title>Sigma Skibidi Translator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -35,37 +35,62 @@
     </style>
 </head>
 <body>
-    <h1>Sigma Meme Translator</h1>
+    <h1>Sigma Skibidi Translator</h1>
     <textarea id="inputText" placeholder="Enter text here..."></textarea>
     <button onclick="translateText()">Translate</button>
     <div class="output" id="outputText"></div>
 
     <script>
-        // Meme translation mapping
+        // Translation mapping for specific words
         const memeMap = {
             hello: "Skibidi Dop Dop Dop Yes Yes!",
             goodbye: "Grindset achieved. I walk alone.",
             work: "Sigma grind never stops.",
-            "good morning": "Rise and grind, alpha warrior!",
             money: "Chasing the bag like a true sigma.",
-            toilet: "Skibidi bop vibes only.",
-            boss: "Sigma respects no authority.",
+            toilet: "Skibidi vibes only.",
+            boss: "No authority for a sigma.",
             "how are you": "Dominating existence, as always.",
             love: "Emotions are for betas. Sigma only.",
-            fun: "Fun? Skibidi Skibidi Dop!",
-            challenge: "Another test for the Sigma mindset.",
+            challenge: "Sigma sees only opportunities.",
         };
 
-        // Function to translate text
+        // Grammar transformation rules
+        function transformSentence(sentence) {
+            const isQuestion = /\?$/.test(sentence);
+            const isExclamation = /!$/.test(sentence);
+
+            // Handle questions
+            if (isQuestion) {
+                return sentence.replace(/.*/, "What the actual sigma?");
+            }
+
+            // Handle exclamations
+            if (isExclamation) {
+                return sentence.replace(/.*/, "Absolute sigma vibes!");
+            }
+
+            // Default case for statements
+            return sentence + " (Sigma grind approved.)";
+        }
+
+        // Main translation function
         function translateText() {
             const inputText = document.getElementById('inputText').value;
-            let translatedText = inputText;
+            const sentences = inputText.split(/(?<=[.?!])\s*/); // Split text into sentences
+            let translatedText = sentences
+                .map(sentence => {
+                    let transformed = sentence;
 
-            // Replace words/phrases based on memeMap
-            for (const [key, value] of Object.entries(memeMap)) {
-                const regex = new RegExp(`\\b${key}\\b`, 'gi');
-                translatedText = translatedText.replace(regex, value);
-            }
+                    // Replace words using memeMap
+                    for (const [key, value] of Object.entries(memeMap)) {
+                        const regex = new RegExp(`\\b${key}\\b`, 'gi');
+                        transformed = transformed.replace(regex, value);
+                    }
+
+                    // Apply grammar rules
+                    return transformSentence(transformed);
+                })
+                .join(" ");
 
             // Display the translated text
             document.getElementById('outputText').textContent = translatedText;
