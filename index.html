@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Translator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .output {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Text Translator</h1>
+    <textarea id="inputText" placeholder="Enter text here..."></textarea>
+    <button onclick="translateText()">Translate</button>
+    <div class="output" id="outputText"></div>
+
+    <script>
+        // Translation mapping
+        const slangMap = {
+            hello: "yo",
+            friend: "homie",
+            awesome: "dope",
+            car: "ride",
+            house: "crib",
+            money: "cheddar",
+            "how are you": "how ya doin'",
+        };
+
+        // Function to translate text
+        function translateText() {
+            const inputText = document.getElementById('inputText').value;
+            let translatedText = inputText;
+
+            // Replace words/phrases based on slangMap
+            for (const [key, value] of Object.entries(slangMap)) {
+                const regex = new RegExp(`\\b${key}\\b`, 'gi');
+                translatedText = translatedText.replace(regex, value);
+            }
+
+            // Display the translated text
+            document.getElementById('outputText').textContent = translatedText;
+        }
+    </script>
+</body>
+</html>
